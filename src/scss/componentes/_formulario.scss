@@ -1,8 +1,9 @@
-@use 'base/variables as v';
+@use 'base/variables' as v;
 @use 'base/mixins' as m;
 
 .fomulario{
     width: 100%;
+    margin-top: 5rem;
 
 }
 

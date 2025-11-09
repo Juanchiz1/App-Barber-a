@@ -20,13 +20,13 @@
             placeholder="Tu Password"
             name="password"
         />
-    
+    </div>
+
     <input type="submit" class="boton" value="Iniciar Sesión" />
 
-
+    <!-- Mueve las acciones aquí -->
+    <div class="acciones">
+        <a href="/crear-cuenta">¿Aún no tienes una cuenta? Crear una</a>
+        <a href="/olvide">¿Olvidaste tu password?</a>
+    </div>
 </form>
-
-<div class="acciones">
-    <a href="/crear">¿Aún no tienes una cuenta? Crear una</a>
-    <a href="/olvide">¿Olvidaste tu password?</a>
-</div>

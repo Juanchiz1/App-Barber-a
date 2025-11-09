@@ -7,7 +7,9 @@ class LoginController {
     
    // Mostrar el formulario de login
     public static function login(Router $router) {
-        $router->render('auth/login');
+        $router->render('auth/login',[
+            
+        ]);
     }
 
     public static function logout(Router $router) {
@@ -15,14 +17,19 @@ class LoginController {
     }
 
     public static function olvide(Router $router) {
-        echo "Desde Olvide";
-    }
+       $router->render('auth/olvide-password',[
+
+       ]);
+}
+        
 
     public static function recuperar(Router $router) {
         echo "Desde Recuperar";
     }
 
     public static function crear(Router $router) {
-        echo "Desde Crear Cuenta";
+        $router->render('auth/crear-cuenta',[
+
+        ]);
     }
 }
