@@ -20,19 +20,28 @@ class Router
    public function comprobarRutas()
 {
     session_start();
-    
-    // ❌ PROBLEMA: PATH_INFO no existe en servidor PHP integrado
-    // $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
-    
-    // ✅ SOLUCIÓN: Usar REQUEST_URI y limpiar la URL
+
+    // Obtén la URL actual de forma segura
     $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
-    $currentUrl = str_replace('/AppSalon_PHP_MVC_JS_SASS/public', '', $currentUrl);
-    
-    // Si es la raíz, usar '/'
-    if($currentUrl === '') {
+
+    // Si la URL tiene parámetros GET, elimínalos
+    $currentUrl = explode('?', $currentUrl)[0];
+
+    // Si el proyecto está en subcarpeta, elimina el prefijo de la ruta física
+    // Ejemplo: Si accedes por http://localhost:3000/AppSalon_PHP_MVC_JS_SASS/public/login
+    //          la ruta será /AppSalon_PHP_MVC_JS_SASS/public/login
+    // Normaliza quitando "/public" y subcarpeta si la hay
+    $publicPos = strpos($currentUrl, '/public');
+    if ($publicPos !== false) {
+        $currentUrl = substr($currentUrl, $publicPos + 7);
+        if ($currentUrl === '' || $currentUrl === false) $currentUrl = '/';
+    }
+
+    // Si la ruta queda vacía, pon '/'
+    if ($currentUrl === '' || $currentUrl === false) {
         $currentUrl = '/';
     }
-    
+
     $method = $_SERVER['REQUEST_METHOD'];
 
     if ($method === 'GET') {
@@ -44,9 +53,10 @@ class Router
     if ($fn) {
         call_user_func($fn, $this);
     } else {
-        echo "Página No Encontrada o Ruta no válida";
+        echo "Página No Encontrada o Ruta no válida <br> Ruta solicitada: '$currentUrl'";
     }
 }
+
 
     public function render($view, $datos = [])
     {
